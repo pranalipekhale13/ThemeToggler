@@ -21,16 +21,27 @@
             width: 70px;
             height: 30px;
             border-radius: 20px;
-            background-color:#d9d9d9;
+            background-color:#f2f2f2;
             border: #000000 2px solid;
             position: relative;
+        }
+        .ico-light{
+            font-size: 20px;
+               position: absolute;
+            left: 10px;
+        }
+        .ico-dark{
+            font-size: 20px;
+            position: absolute;
+            right: 10px;
+            visibility: hidden;
         }
        .theme-toggle-light{
         border: 1px solid #f5a142;
        }
        .theme-toggle-dark{
         border: 1px solid white;
-        background-color: black;
+        background-color:#f2f2f2;
        }
     </style>
 </head>
@@ -41,6 +52,50 @@
             <span class="ico-light" id="ico-light">🌞</span>
             <span class="ico-dark" id="ico-dark">🌜</span>
         </div>
+<script>
+     const themeToggle = document.getElementById("theme-toggle");
+    const icoLight = document.getElementById("ico-light");
+    const icoDark = document.getElementById("ico-dark");
 
+   
+    function toggleDark() {
+        document.body.style.backgroundColor = "black";
+        document.body.style.color = "white";
+
+        icoLight.style.visibility = "hidden";
+        icoDark.style.visibility = "visible";
+
+        themeToggle.classList.remove("theme-toggle-light");
+        themeToggle.classList.add("theme-toggle-dark");
+
+        localStorage.setItem("theme", "dark");
+    }
+    function toggleLight(){
+        document.body.style.backgroundColor = "white";
+        document.body.style.color = "black";
+        icoLight.style.visibility = "visible";
+        icoDark.style.visibility = "hidden";
+        themeToggle.classList.remove("theme-toggle-dark");
+        themeToggle.classList.add("theme-toggle-light");
+        localStorage.setItem("theme", "light");
+    }
+    function toggleTheme() {
+        const currentTheme = localStorage.getItem("theme");
+        if (currentTheme === "dark") {
+            toggleLight();
+        } else {
+            toggleDark();
+        }
+    }
+    function renderTheme(){
+        const localStoragetheme = localStorage.getItem("theme");
+        if(localStoragetheme === "dark"){
+            toggledark();
+        } else {
+            togglelight();
+        }
+    }
+    renderTheme();
+</script>
 </body>
 </html>
