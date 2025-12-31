@@ -10,39 +10,32 @@
             padding: 20px;
         }
         .container {
-            text-align: center;
-            margin-top: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 200px;
         }
         .theme-toggle {
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 70px;
-            height: 30px;
-            border-radius: 20px;
-            background-color:#f2f2f2;
-            border: #000000 2px solid;
+             width: fit-content;
+            height: 25px;
+            background: #ccc;
+            border-radius: 50px;
             position: relative;
+            cursor: pointer;
+            padding: 2px 10px;
+            border: 1px solid #000000;
+
+
         }
-        .ico-light{
-            font-size: 20px;
-               position: absolute;
-            left: 10px;
+        .theme-toggle-light {
+            background-color: #f2f2f2;
+            border: #000000 2px solid;
         }
-        .ico-dark{
-            font-size: 20px;
-            position: absolute;
-            right: 10px;
-            visibility: hidden;
+        .theme-toggle-dark {
+            background-color: #333333;
+            border: #ffffff 2px solid;
         }
-       .theme-toggle-light{
-        border: 1px solid #f5a142;
-       }
-       .theme-toggle-dark{
-        border: 1px solid white;
-        background-color:#f2f2f2;
-       }
     </style>
 </head>
 <body>
@@ -57,17 +50,24 @@
     const icoLight = document.getElementById("ico-light");
     const icoDark = document.getElementById("ico-dark");
 
+    function toggleTheme(){
+        const localStoragetheme = localStorage.getItem("theme");
+        if(localStoragetheme === "dark"){
+           toggleLight();
+           localStorage.setItem("theme", "light");
+        } else {
+           toggleDark();
+              localStorage.setItem("theme", "dark");
+    }
+}
    
     function toggleDark() {
         document.body.style.backgroundColor = "black";
         document.body.style.color = "white";
-
         icoLight.style.visibility = "hidden";
         icoDark.style.visibility = "visible";
-
         themeToggle.classList.remove("theme-toggle-light");
         themeToggle.classList.add("theme-toggle-dark");
-
         localStorage.setItem("theme", "dark");
     }
     function toggleLight(){
@@ -79,22 +79,14 @@
         themeToggle.classList.add("theme-toggle-light");
         localStorage.setItem("theme", "light");
     }
-    function toggleTheme() {
-        const currentTheme = localStorage.getItem("theme");
-        if (currentTheme === "dark") {
-            toggleLight();
-        } else {
-            toggleDark();
-        }
+   function renderTheme(){
+    const localStoragetheme = localStorage.getItem("theme");
+    if(localStoragetheme === "dark"){
+        toggleDark();
+    } else {
+        toggleLight();
     }
-    function renderTheme(){
-        const localStoragetheme = localStorage.getItem("theme");
-        if(localStoragetheme === "dark"){
-            toggledark();
-        } else {
-            togglelight();
-        }
-    }
+}
     renderTheme();
 </script>
 </body>
